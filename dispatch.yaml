@@ -1,0 +1,3 @@
+dispatch:
+  - url: "sf.emani.pro/*"
+    service: sf
