@@ -4,10 +4,14 @@ from .extentions import db, login_manager
 
 from .contractor.views import contractor
 from .customer.views import customer
+from .errors.handlers import errors
 
 
 def create_app():
     app = Flask(__name__)
+
+    app.config.from_object('config.BaseConfig')
+    
 
     db.init_app(app)
     #login_manager.init_app(app)
@@ -21,5 +25,6 @@ def create_app():
 
     app.register_blueprint(contractor)
     app.register_blueprint(customer)
+    app.register_blueprint(errors)
 
     return app

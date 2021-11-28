@@ -1,6 +1,10 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for
+from flask_login import login_required, current_user
+
+from app import db
 
 from .forms import ContractorForm
+from .models import Contractor, Satiscare
 
 
 contractor = Blueprint('contractor', __name__, url_prefix='/contractor')
@@ -10,19 +14,19 @@ contractor = Blueprint('contractor', __name__, url_prefix='/contractor')
 @contractor.route('/')
 def index():
     page = request.args.get('page', 1, type=int)
-    return render_template('contractor/index.html')
+    contractors = Contractor.query.paginate(page=page, per_page=20)
+
+    return render_template('contractor/index.html', contractors=contractors)
 
 
 # register contractor
 @contractor.route('/register', methods=['GET', 'POST'])
 def register():
     form = ContractorForm()
-    return render_template('contractor/register.html', form=form)
 
-
-"""
     if form.validate_on_submit():
         id = request.form['id']
+        
         # check if id already exists in the db
         exists = Contractor.query.get(id)
 
@@ -57,4 +61,12 @@ def register():
             flash('パートナーを登録しました。', 'success')
 
             return redirect(url_for('contractor.index'))
-"""
+
+    return render_template('contractor/register.html', form=form)
+
+
+# contractor profile
+@contractor.route('/<int:id>')
+def profile(id):
+    contractor = Contractor.query.get_or_404(id)
+    return render_template('contractor/profile.html', contractor=contractor)
