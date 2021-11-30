@@ -13,7 +13,7 @@ class Staff(db.Model, UserMixin):
     first_name = db.Column(db.String(30), nullable=False)
     email = db.Column(db.String(255), nullable=False, unique=True)
     password = db.Column(db.String(255), nullable=False)
-    inactive = db.Column(db.Boolean, nullable=True)
+    is_inactive = db.Column(db.Boolean, nullable=True)
 
     def check_password(self, password):
         return check_password_hash(self.password, password)

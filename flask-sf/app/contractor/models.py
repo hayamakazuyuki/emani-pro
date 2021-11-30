@@ -13,7 +13,7 @@ class Contractor(db.Model):
     address = db.Column(db.String(100))
     bldg = db.Column(db.String(50))
     telephone = db.Column(db.String(15), nullable=False)
-    inactive = db.Column(db.Integer, nullable=True)
+    is_inactive = db.Column(db.Integer, nullable=True)
     registered_by = db.Column(db.Integer, nullable=False)
     registered_at = db.Column(db.DateTime, default=func.now())
     satiscare = db.relationship('Satiscare', backref='contractor', uselist=False)
