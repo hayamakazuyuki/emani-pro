@@ -12,6 +12,7 @@ contractor = Blueprint('contractor', __name__, url_prefix='/contractor')
 
 # contractor index page
 @contractor.route('/')
+@login_required
 def index():
     page = request.args.get('page', 1, type=int)
     contractors = Contractor.query.paginate(page=page, per_page=20)
@@ -21,6 +22,7 @@ def index():
 
 # register contractor
 @contractor.route('/register', methods=['GET', 'POST'])
+@login_required
 def register():
     form = ContractorForm()
 
@@ -67,6 +69,7 @@ def register():
 
 # contractor profile
 @contractor.route('/<int:id>')
+@login_required
 def profile(id):
     contractor = Contractor.query.get_or_404(id)
     return render_template('contractor/profile.html', contractor=contractor)

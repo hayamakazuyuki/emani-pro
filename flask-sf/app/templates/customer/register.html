@@ -5,12 +5,14 @@
 
 <div class="container max-w-6xl mx-auto">
     <h1 class="font-bold text-lg mt-7">取引先登録</h1>
-    <form name="customer" action="/customer_register" method="POST">
+    <form name="customer" action="/customer/register" method="POST">
     {{ form.csrf_token }}
     <div class="mt-3">{{ form.id.label(class_="text-sm") }}</div>
     <div>{{ form.id(class_="border") }}</div>
-    <div id="id_error" style="color: red;"></div> {# jsでバリエーション＆エラー表示をさせる場所 #}
-
+    
+    {# jsでバリエーション＆エラー表示をさせる場所 #}
+    <div id="id_error" style="color: red;"></div>
+    
     <div class="mt-3">{{ form.name.label(class_="text-sm") }}</div>
     <div>{{ form.name(class_="border") }}</div>
     <div class="mt-3">{{ form.title.label(class_="text-sm") }}</div>

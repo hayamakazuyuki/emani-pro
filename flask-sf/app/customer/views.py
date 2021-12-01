@@ -1,29 +1,25 @@
 from flask import Blueprint, request, flash, redirect, render_template, url_for
+from flask_login import login_required, current_user
+
 from .models import Customer
 from .forms import CustomerForm
 from app import db
 
-
 customer = Blueprint('customer', __name__, url_prefix='/customer')
-
 
 # customer index route
 @customer.route('/')
+@login_required
 def index():
-    return render_template('customer/index.html')
 
-
-
-
-    """
     page = request.args.get('page', 1, type=int)
     customers = Customer.query.paginate(page=page, per_page=20)
 
-    return render_template('customer/index.html', customers=customers)
-"""
+    return render_template('customer/index.html', customers=customers, page=page)
 
 # register contractor
 @customer.route('/register', methods=['GET', 'POST'])
+@login_required
 def register():
     form = CustomerForm()
 
@@ -63,8 +59,8 @@ def register():
     return render_template('customer/register.html', form=form)
 
 
-
 @customer.route('/customer/<int:id>')
+@login_required
 def customer_profile(id):
     customer = Customer.query.get_or_404(id)
     
@@ -72,5 +68,6 @@ def customer_profile(id):
 
 
 @customer.route('/shop')
+@login_required
 def shop():
     return 'ショップ'

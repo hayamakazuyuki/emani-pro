@@ -25,7 +25,7 @@ def login():
             return redirect(url_for('staff.login'))
 
         login_user(staff, remember=True)
-        return redirect(url_for('contractor.index'))
+        return redirect(url_for('home.index'))
 
     return render_template('login.html', form=form)
 
