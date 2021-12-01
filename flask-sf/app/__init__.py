@@ -13,7 +13,6 @@ def create_app():
 
     app.config.from_object('config.BaseConfig')
     
-
     db.init_app(app)
     login_manager.init_app(app)
     admin.init_app(app)
@@ -23,7 +22,8 @@ def create_app():
 
     @app.route('/')
     def index():
-        return 'hi'
+        this_env = app.config['ENV']
+        return this_env
 
     app.register_blueprint(contractor)
     app.register_blueprint(customer)
