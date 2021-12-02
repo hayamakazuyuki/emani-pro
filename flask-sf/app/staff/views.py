@@ -9,8 +9,8 @@ staff = Blueprint('staff', __name__)
 
 @staff.route('/login', methods=['GET', 'POST'])
 def login():
-#    if current_user.is_authenticated:
-#        return redirect(url_for('staff.test'))
+    if current_user.is_authenticated:
+        return redirect(url_for('home.index'))
 
     form = LoginForm()
 
