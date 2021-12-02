@@ -67,9 +67,20 @@ def register():
     return render_template('contractor/register.html', form=form)
 
 
-# contractor profile
+# show and update contractor's profile
 @contractor.route('/<int:id>')
 @login_required
 def profile(id):
+
     contractor = Contractor.query.get_or_404(id)
+    mode = request.args.get('mode')
+
+    if mode == 'edit':
+        form = ContractorForm()
+
+        if form.validate_on_submit():
+            return 'バリデート'
+        
+        return render_template('contractor/update.html', form=form, contractor=contractor)
+
     return render_template('contractor/profile.html', contractor=contractor)
