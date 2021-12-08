@@ -5,6 +5,7 @@ from app import db
 
 from .forms import ContractorForm
 from .models import Contractor, Satiscare
+from ..staff.models import Staff
 
 
 contractor = Blueprint('contractor', __name__, url_prefix='/contractor')
@@ -74,6 +75,7 @@ def register():
 def profile(id):
 
     contractor = Contractor.query.get_or_404(id)
+    staff = Staff.query.get(contractor.registered_by)
     mode = request.args.get('mode')
 
     if mode == 'edit':
@@ -116,7 +118,7 @@ def profile(id):
 
         return render_template('contractor/update.html', form=form, contractor=contractor)
 
-    return render_template('contractor/profile.html', contractor=contractor)
+    return render_template('contractor/profile.html', contractor=contractor, staff=staff)
 
 #==================== contractor ====================#
 

@@ -2,6 +2,8 @@ from flask import Blueprint, request, flash, redirect, render_template, url_for
 from flask_login import login_required, current_user
 
 from .models import Customer
+from ..staff.models import Staff
+
 from .forms import CustomerForm
 from app import db
 
@@ -59,12 +61,15 @@ def register():
     return render_template('customer/register.html', form=form)
 
 
-@customer.route('/customer/<int:id>')
+@customer.route('/<int:id>')
 @login_required
 def customer_profile(id):
-    customer = Customer.query.get_or_404(id)
     
-    return render_template('customer/profile.html', customer=customer)
+    customer = Customer.query.get_or_404(id)
+    staff = Staff.query.get(customer.registered_by)
+
+    
+    return render_template('customer/profile.html', customer=customer, staff=staff)
 
 
 @customer.route('/shop')

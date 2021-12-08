@@ -2,31 +2,37 @@
 {% block content %}
 {% include "navbar.html" %}
 {% include "_flashing.html" %}
-<div class="container max-w-6xl mx-auto mt-7">
-    <h1 class="font-bold text-lg">パートナー 詳細情報</h1>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32 bg-gray-100">登録・更新者</p>
-        <p class="mx-3 bg-red-100">{{ customer.registered_by }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">登録・更新日時</p>
-        <p class="mx-3">{{ customer.registered_at }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">パートナーID</p>
-        <p class="mx-3">{{ customer.id }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">パートナー名</p>
-        <p class="mx-3">{{ customer.name }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">代表者役職</p>
-        <p class="mx-3">{{ customer.title }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">代表者名</p>
-        <p class="mx-3">{{ customer.representative }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">郵便番号</p>
-        <p class="mx-3">{{ '〒{}-{}'.format(customer.zip[:3], customer.zip[3:]) }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">住所</p>
-        <p class="mx-3">{{ customer.prefecture }}{{ customer.city }}{{ customer.town }}
-            {{ customer.address }}{{ customer.bldg }}</p></div>
-    <div class="flex mt-3"><p class="mx-3 text-sm w-32">代表電話</p>
-        <p class="mx-3">{{ customer.telephone }}</p></div>
 
-    <p class="mt-4">
-        <a href="/customer/{{ customer.id }}?mode=edit" class="text-decoration-none">取引先情報の編集</a>
+<div class="container max-w-lg mx-auto">
+    <h1 class="text-2xl mt-7">パートナーの詳細情報</h1>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm text-gray-500 w-32">登録・更新者</p>
+        <p class="mx-3 text-lg">{{ staff.last_name }}{{ staff.first_name }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">登録・更新日時</p>
+        <p class="mx-3 text-lg">{{ customer.registered_at }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">パートナーID</p>
+        <p class="mx-3 text-lg">{{ customer.id }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">パートナー名</p>
+        <p class="mx-3 text-lg">{{ customer.name }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">代表者役職</p>
+        <p class="mx-3 text-lg">{{ customer.title }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">代表者名</p>
+        <p class="mx-3 text-lg">{{ customer.representative }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">郵便番号</p>
+        <p class="mx-3 text-lg">{{ '〒{}-{}'.format(customer.zip[:3], customer.zip[3:]) }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">住所</p>
+        <p class="mx-3 text-lg">{{ customer.prefecture }}{{ customer.city }}{{ customer.town }}
+            {{ customer.address }}{{ customer.bldg }}</p></div>
+    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">代表電話</p>
+        <p class="mx-3 text-lg">{{ customer.telephone }}</p></div>
+
+    <p class="mt-4 mx-3">
+        <a href="/customer/{{ customer.id }}?mode=edit" class="text-blue-500 hover:text-blue-700 hover:underline">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+              </svg>
+              <span class="align-middle">取引先情報の編集</span></a>
     </p>
-    
 </div>
+
 {% endblock %}
