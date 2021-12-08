@@ -95,7 +95,8 @@ def profile(id):
             
             # if care checkbox is checked
             care = request.form.get('care')
-            # if already a satiscare 
+
+            # if already a satiscare member 
             is_member = Satiscare.query.filter_by(contractor_id=id).first()
 
             if is_member and not care:
