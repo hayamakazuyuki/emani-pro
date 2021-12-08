@@ -1,5 +1,7 @@
 from sqlalchemy import func
-from ..extentions import db
+from ..extentions import db, admin
+from flask_admin.contrib.sqla import ModelView
+
 
 class Contractor(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -22,3 +24,6 @@ class Satiscare(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     contractor_id = db.Column(db.Integer, db.ForeignKey('contractor.id'), unique=True, nullable=False)
     membership = db.Column(db.Integer, nullable=True)
+
+admin.add_view(ModelView(Contractor, db.session, endpoint="contractorview"))
+admin.add_view(ModelView(Satiscare, db.session, endpoint="satiscare"))

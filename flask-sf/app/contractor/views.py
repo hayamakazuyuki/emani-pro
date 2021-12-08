@@ -10,6 +10,7 @@ from .models import Contractor, Satiscare
 contractor = Blueprint('contractor', __name__, url_prefix='/contractor')
 
 
+#==================== contractor ====================#
 # contractor index page
 @contractor.route('/')
 @login_required
@@ -68,7 +69,7 @@ def register():
 
 
 # show and update contractor's profile
-@contractor.route('/<int:id>')
+@contractor.route('/<int:id>', methods=['GET', 'POST'])
 @login_required
 def profile(id):
 
@@ -79,8 +80,42 @@ def profile(id):
         form = ContractorForm()
 
         if form.validate_on_submit():
-            return 'バリデート'
-        
+
+            contractor.name = request.form['name']
+            contractor.title = request.form.get('title')
+            contractor.representative = request.form['representative']
+            contractor.zip = request.form['zip']
+            contractor.prefecture = request.form['prefecture']
+            contractor.city = request.form['city']
+            contractor.town = request.form['town']
+            contractor.address = request.form.get('address')
+            contractor.bldg = request.form.get('bldg')
+            contractor.telephone = request.form['telephone']
+            contractor.registered_by = current_user.id
+            
+            # if care checkbox is checked
+            care = request.form.get('care')
+            # if already a satiscare 
+            is_member = Satiscare.query.filter_by(contractor_id=id).first()
+
+            if is_member and not care:
+                member = Satiscare.query.filter_by(contractor_id=id).first()
+                db.session.delete(member)
+
+            elif not is_member and care:
+                care = Satiscare(contractor_id=id, membership=care)
+                db.session.add(care)
+
+            else:
+                pass
+
+            db.session.commit()
+
+            return redirect(url_for('contractor.profile', id=id))
+
         return render_template('contractor/update.html', form=form, contractor=contractor)
 
     return render_template('contractor/profile.html', contractor=contractor)
+
+#==================== contractor ====================#
+
