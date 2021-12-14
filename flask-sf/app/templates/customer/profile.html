@@ -4,7 +4,7 @@
 {% include "_flashing.html" %}
 
 <div class="container max-w-lg mx-auto">
-    <h1 class="text-2xl mt-7">パートナーの詳細情報</h1>
+    <h1 class="text-2xl my-7">取引先の詳細情報</h1>
     <div class="flex mt-3 items-center"><p class="mx-3 text-sm text-gray-500 w-32">登録・更新者</p>
         <p class="mx-3 text-lg">{{ staff.last_name }}{{ staff.first_name }}</p></div>
     <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">登録・更新日時</p>
@@ -35,4 +35,48 @@
     </p>
 </div>
 
+<div class="max-w-6xl mx-auto my-10">
+    <div class="flex items-end">
+        <h1 class="text-xl">事業所一覧</h1>
+        <p class="mx-10 text-sm">
+        <a href="/customer/shop/register?customer_id={{ customer.id }}" class="text-blue-500 hover:text-blue-700 hover:underline">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+            <span class="align-middle">新規事業所を登録</span>
+        </a>
+    </p>
+    </div>
+    {% if shops %}
+    <p>
+
+    </p>
+    <table class="table table-sm my-5">
+        <thead>
+            <tr>
+                <th>当社ID</th>
+                <th>取引先#</th>
+                <th>事業所名</th>
+                <th>住所</th>
+                <th>電話番号</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shop in shops.items %}
+        <tr>
+            <td class="px-3">{{ shop.id }}</td>
+            <td class="px-3">{{ shop.customer_shop_id }}</td>
+            <td class="px-3">
+                <a href="/shop/{{ shop.customer_id }}/{{ shop.id }}" class="text-blue-500 hover:text-blue-700 hover:underline">
+                   {{ shop.name }}
+                </a>
+            </td>
+            <td class="px-3">{{ shop.prefecture }}{{ shop.city }}{{ shop.town }}{{ shop.address }}</td>
+            <td class="px-3">{{ shop.telephone }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+</div>
 {% endblock %}
