@@ -68,7 +68,7 @@ def profile(id):
     customer = Customer.query.get_or_404(id)
     staff = Staff.query.get(customer.registered_by)
     mode = request.args.get('mode')
-    
+
     page = request.args.get('page', 1, type=int)
     shops = Shop.query.filter_by(customer_id=id).paginate(page=page, per_page=20)
 
@@ -140,3 +140,11 @@ def shop_register():
     return render_template('customer/shop-register.html', form=form, customer_id=customer_id)
 
 
+@customer.route('/<int:customer_id>/<int:id>', methods=['GET', 'POST'])
+@login_required
+def shop_profile(customer_id, id):
+    
+    shop = Shop.query.get_or_404((customer_id, id))
+    staff = Staff.query.get(shop.registered_by)
+
+    return render_template('customer/shop-profile.html', shop=shop, staff=staff)

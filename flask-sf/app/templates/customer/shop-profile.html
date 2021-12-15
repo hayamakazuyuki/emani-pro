@@ -1,0 +1,76 @@
+{% extends "base.html" -%}
+{% block content %}
+{% include "navbar.html" %}
+{% include "_flashing.html" %}
+
+<div class="container max-w-lg mx-auto px-3">
+    <h1 class="text-2xl my-7">店舗の詳細情報</h1>
+    <div class="px-5 py-3 rounded overflow-hidden shadow-lg">
+        <h2 class="text-xs text-gray-500">更新情報</h2>
+        <p class="text-base text-gray-600">{{ shop.registered_at }}<span class="ml-7">{{ staff.last_name }}{{ staff.first_name }}</span></p>
+    </div>
+
+    <div class="my-3 px-5 py-3 rounded overflow-hidden shadow-lg text-gray-600">
+        <p class="text-lg my-2">{{ shop.customer_id }} - {{ shop.id }}</p>
+        <p class="text-2xl my-2">{{ shop.name }}</p>
+        <p class="text-lg my-2">{{ '〒{}-{}'.format(shop.zip[:3], shop.zip[3:]) }}</p>
+        <p class="text-lg my-2">{{ shop.prefecture }}{{ shop.city }}{{ shop.town }}{{ shop.address }}{{ shop.bldg }}</p>
+        <p class="text-lg my-2">{{ shop.telephone }}</p>
+        <p class="mt-4">
+            <a href="/customer/{{ shop.customer_id }}/{{ shop.id }}?mode=edit" class="text-blue-500 hover:text-blue-700 hover:underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                </svg>
+                <span class="align-middle">編集</span></a>
+        </p>
+    </div>
+</div>
+
+{#
+<div class="max-w-6xl mx-auto my-10 px-3">
+    <div class="flex items-end">
+        <h1 class="text-xl">事業所一覧</h1>
+        <p class="mx-10 text-sm">
+        <a href="/customer/shop/register?customer_id={{ customer.id }}" class="text-blue-500 hover:text-blue-700 hover:underline">
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
+        </svg>
+            <span class="align-middle">新規事業所を登録</span>
+        </a>
+    </p>
+    </div>
+    {% if shops %}
+    <p>
+
+    </p>
+    <table class="table table-sm my-5">
+        <thead>
+            <tr>
+                <th>当社ID</th>
+                <th>取引先#</th>
+                <th>事業所名</th>
+                <th>住所</th>
+                <th>電話番号</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for shop in shops.items %}
+        <tr>
+            <td class="px-3">{{ shop.id }}</td>
+            <td class="px-3">{{ shop.customer_shop_id }}</td>
+            <td class="px-3">
+                <a href="/shop/{{ shop.customer_id }}/{{ shop.id }}" class="text-blue-500 hover:text-blue-700 hover:underline">
+                   {{ shop.name }}
+                </a>
+            </td>
+            <td class="px-3">{{ shop.prefecture }}{{ shop.city }}{{ shop.town }}{{ shop.address }}</td>
+            <td class="px-3">{{ shop.telephone }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+    {% endif %}
+    #}
+</div>
+{% endblock %}
