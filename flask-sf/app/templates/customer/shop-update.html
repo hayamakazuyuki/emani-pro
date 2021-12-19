@@ -1,0 +1,50 @@
+{% extends "base.html" -%}
+{% block content %}
+{% include "navbar.html" %}
+{% include "_flashing.html" %}
+{% from "_macros.html" import render_field_with_errors %}
+
+<div class="container max-w-md mx-auto">
+    <h1 class="text-2xl my-7">店舗情報の編集</h1>
+    <form name="shop" action="/customer/{{ shop.customer_id }}/{{ shop.id }}?mode=edit" method="POST">
+
+    {{ form.csrf_token }}
+    <div class="my-3 text-sm text-gray-500 flex">
+        <div>
+        {{ render_field_with_errors(form.customer_id, class_="my-1 px-5 w-full text-base text-gray-800", readonly=True, value=shop.customer_id) }}
+        </div>
+        <div>
+        {{ render_field_with_errors(form.id, class_="my-1 px-5 w-full text-base text-gray-800", readonly=True, value=shop.id) }}
+        </div>
+    </div>
+    <div class="my-3 text-sm text-gray-500">
+        {{ render_field_with_errors(form.customer_shop_id, class_="my-1 px-5 border-b w-full text-base text-gray-800", value=shop.customer_shop_id) }}</div>
+    <div class="my-3 text-sm text-gray-500">
+        {{ render_field_with_errors(form.name, class_="my-1 px-5 border-b w-full text-base text-gray-800", value=shop.name) }}</div>
+    <div class="my-3 text-sm text-gray-500">
+        {{ render_field_with_errors(form.zip, class_="my-1 px-5 border-b w-full text-base text-gray-800", value=shop.zip) }}</div>
+    <div class="my-3 text-sm text-gray-500">
+        <p>都道府県　市区町村　町域</p>
+        {{ form.prefecture(class_="my-1 px-5 border-b w-1/4 text-base text-gray-800", readonly=True, value=shop.prefecture) }}
+        {{ form.city(class_="my-1 px-5 border-b w-1/4 text-base text-gray-800", readonly=True, value=shop.city) }}
+        {{ form.town(class_="my-1 px-5 border-b w-auto text-base text-gray-800", readonly=True, value=shop.town) }}
+    <div class="my-3 text-sm text-gray-500">
+        {{ render_field_with_errors(form.address, class_="my-1 px-5 border-b w-full text-base text-gray-800", value=shop.address) }}</div>
+    <div class="my-3 text-sm text-gray-500">
+        {{ render_field_with_errors(form.bldg, class_="my-1 px-5 border-b w-full text-base text-gray-800", value=shop.bldg) }}</div>
+    <div class="my-3 text-sm text-gray-500">
+        {{ render_field_with_errors(form.telephone, class_="my-1 px-5 border-b w-full text-base text-gray-800", value=shop.telephone) }}</div>
+    
+        <div id="tel_error" style="color: red;"></div> {# jsでバリエーション＆エラー表示をさせる場所 #}
+    
+    <button type="submit" class="bg-blue-600 text-white text-sm my-5 py-1 px-20 rounded shadow-lg
+    hover:bg-blue-800 transition duration-200">登録</button>
+</div>
+
+<!-- javascript -->
+<script type="text/javascript" src="{{ url_for('static', filename='js/register.js') }}"></script>
+<!-- 住所補完JavaScriptライブラリの読み込み -->
+<script type="text/javascript" src="https://postcode-jp.com/js/postcodejp.js" charset="utf-8"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/postcode.js') }}"></script>
+
+{% endblock %}

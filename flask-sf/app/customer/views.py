@@ -147,4 +147,17 @@ def shop_profile(customer_id, id):
     shop = Shop.query.get_or_404((customer_id, id))
     staff = Staff.query.get(shop.registered_by)
 
+    mode = request.args.get('mode')
+
+    if mode == 'edit':
+        form = ShopForm()
+
+        if form.validate_on_submit():
+
+            flash('取引先情報を更新しました。', 'success')
+
+            return redirect(url_for('customer.shop_profile', customer_id=customer_id, id=id))
+
+        return render_template('customer/shop-update.html', shop=shop, form=form)
+
     return render_template('customer/shop-profile.html', shop=shop, staff=staff)
