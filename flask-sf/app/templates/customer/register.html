@@ -35,23 +35,8 @@
     <div class="my-3 text-sm text-gray-500">
         {{ render_field_with_errors(form.telephone, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
     <div id="tel_error" style="color: red;"></div> {# jsでバリエーション＆エラー表示をさせる場所 #}
-        
+
     <button type="submit" class="bg-blue-600 text-white text-sm my-5 py-1 px-28 rounded shadow-lg
-    hover:bg-blue-800 transition duration-200">登録</button>
-</div>
-
-<div class="container max-w-6xl mx-auto">
-    <form name="customer" action="/customer/register" method="POST">
-    
-    <div class="mt-3">{{ form.address.label(class_="text-sm") }}</div>
-    <div>{{ form.address(class_="border") }}</div>
-    <div class="mt-3">{{ form.bldg.label(class_="text-sm") }}</div>
-    <div>{{ form.bldg(class_="border") }}</div>
-    <div class="mt-3">{{ form.telephone.label(class_="text-sm") }}</div>
-    <div>{{ form.telephone(class_="border") }}</div>
-    <div id="tel_error" style="color: red;"></div> {# jsでバリエーション＆エラー表示をさせる場所 #}
-
-    <button type="submit" class="bg-blue-600 text-white text-sm my-5 py-1 px-20 rounded shadow-lg
     hover:bg-blue-800 transition duration-200">登録</button>
 </div>
 

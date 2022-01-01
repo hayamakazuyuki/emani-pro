@@ -1,5 +1,6 @@
 from flask import Blueprint, request, flash, redirect, render_template, url_for
 from flask_login import login_required, current_user
+from sqlalchemy.sql.expression import null
 
 from .models import Customer, Shop
 from ..staff.models import Staff
@@ -9,7 +10,7 @@ from app import db
 
 customer = Blueprint('customer', __name__, url_prefix='/customer')
 
-# customer index route
+#========== customer ==========#
 @customer.route('/')
 @login_required
 def index():
@@ -89,6 +90,14 @@ def profile(id):
             customer.telephone = request.form['telephone']
             customer.registered_by = current_user.id
 
+            is_inactive = request.form.get('is_inactive')
+
+            if customer.is_inactive is None and is_inactive:
+                customer.is_inactive = 1
+
+            elif customer.is_inactive and is_inactive is None:
+                customer.is_inactive = None
+
             db.session.commit()
 
             flash('取引先情報を更新しました。', 'success')
@@ -100,6 +109,7 @@ def profile(id):
     return render_template('customer/profile.html', customer=customer, staff=staff, shops=shops)
 
 
+#========== shop ==========#
 @customer.route('/shop/register', methods=['GET', 'POST'])
 @login_required
 def shop_register():
