@@ -11,6 +11,10 @@
     </div>
 
     <div class="my-3 px-5 py-3 rounded overflow-hidden shadow-lg text-gray-600">
+        {% if shop.is_inactive == 1 %}
+        <p class="inline-flex px-3 py-2 text-xs font-bold leading-none text-white bg-red-600 rounded-full">休止中</p>
+        {% endif %}
+
         <p class="text-lg my-2">{{ shop.customer_id }} - {{ shop.id }}</p>
         <p class="text-2xl my-2">{{ shop.name }}</p>
         <p class="text-lg my-2">{{ '〒{}-{}'.format(shop.zip[:3], shop.zip[3:]) }}</p>

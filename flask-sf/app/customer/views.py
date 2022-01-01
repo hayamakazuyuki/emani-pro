@@ -154,6 +154,21 @@ def shop_profile(customer_id, id):
 
         if form.validate_on_submit():
 
+            shop.customer_id = request.form['customer_id']
+            shop.id = request.form['id']
+            shop.customer_shop_id = request.form.get('customer_shop_id')
+            shop.name = request.form['name']
+            shop.zip = request.form['zip']
+            shop.prefecture = request.form['prefecture']
+            shop.city = request.form['city']
+            shop.town = request.form['town']
+            shop.address = request.form['address']
+            shop.bldg = request.form.get('bldg')
+            shop.telephone = request.form['telephone']
+            shop.registered_by = current_user.id
+
+            db.session.commit()
+
             flash('取引先情報を更新しました。', 'success')
 
             return redirect(url_for('customer.shop_profile', customer_id=customer_id, id=id))

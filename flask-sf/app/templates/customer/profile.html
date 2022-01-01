@@ -4,35 +4,32 @@
 {% include "_flashing.html" %}
 
 <div class="container max-w-lg mx-auto px-3">
-    <h1 class="text-2xl my-7">取引先の詳細情報</h1>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm text-gray-500 w-32">登録・更新者</p>
-        <p class="mx-3 text-lg">{{ staff.last_name }}{{ staff.first_name }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">登録・更新日時</p>
-        <p class="mx-3 text-lg">{{ customer.registered_at }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">パートナーID</p>
-        <p class="mx-3 text-lg">{{ customer.id }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">パートナー名</p>
-        <p class="mx-3 text-lg">{{ customer.name }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">代表者役職</p>
-        <p class="mx-3 text-lg">{{ customer.title }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">代表者名</p>
-        <p class="mx-3 text-lg">{{ customer.representative }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">郵便番号</p>
-        <p class="mx-3 text-lg">{{ '〒{}-{}'.format(customer.zip[:3], customer.zip[3:]) }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">住所</p>
-        <p class="mx-3 text-lg">{{ customer.prefecture }}{{ customer.city }}{{ customer.town }}
-            {{ customer.address }}{{ customer.bldg }}</p></div>
-    <div class="flex mt-3 items-center"><p class="mx-3 text-sm w-32 text-gray-500">代表電話</p>
-        <p class="mx-3 text-lg">{{ customer.telephone }}</p></div>
-
-    <p class="mt-4 mx-3">
-        <a href="/customer/{{ customer.id }}?mode=edit" class="text-blue-500 hover:text-blue-700 hover:underline">
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" viewBox="0 0 20 20" fill="currentColor">
-                <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
-                <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
-              </svg>
-              <span class="align-middle">取引先情報の編集</span></a>
-    </p>
+    <h1 class="text-3xl my-7">取引先</h1>
+    <div class="px-5 py-3 rounded overflow-hidden shadow-lg">
+        <h2 class="text-xs text-gray-500">更新情報</h2>
+        <p class="text-base text-gray-600">{{ customer.registered_at }}<span class="ml-7">{{ staff.last_name }}{{ staff.first_name }}</span></p>
+    </div>
+    <div class="my-3 px-5 py-3 rounded overflow-hidden shadow-lg text-gray-600">
+        {% if customer.is_inactive == 1 %}
+        <p  class="inline-flex px-3 py-2 text-xs font-bold leading-none text-white bg-red-600 rounded-full">
+            休止中
+        </p>
+        {% endif %}
+        <p class="text-lg my-2">{{ customer.id }}</p>
+        <p class="text-2xl my-2">{{ customer.name }}</p>
+        <p class="text-lg my-2"><span class="text-sm mr-5">{{ customer.title }}</span>{{ customer.representative }}</p>
+        <p class="text-lg my-2"><span class="text-sm mr-1">〒</span>{{ '{}-{}'.format(customer.zip[:3], customer.zip[3:]) }}</p>
+        <p class="text-lg my-2">{{ customer.prefecture }}{{ customer.city }}{{ customer.town }}{{ customer.address }}{{ customer.bldg }}</p>
+        <p class="text-lg my-2">{{ customer.telephone }}</p>
+        <p class="mt-4">
+            <a href="/customer/{{ customer.id }}?mode=edit" class="text-blue-500 hover:text-blue-700 hover:underline">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 inline-block" viewBox="0 0 20 20" fill="currentColor">
+                    <path d="M17.414 2.586a2 2 0 00-2.828 0L7 10.172V13h2.828l7.586-7.586a2 2 0 000-2.828z" />
+                    <path fill-rule="evenodd" d="M2 6a2 2 0 012-2h4a1 1 0 010 2H4v10h10v-4a1 1 0 112 0v4a2 2 0 01-2 2H4a2 2 0 01-2-2V6z" clip-rule="evenodd" />
+                </svg>
+                <span class="align-middle">編集</span></a>
+        </p>
+    </div>
 </div>
 
 <div class="max-w-6xl mx-auto my-10 px-3">
