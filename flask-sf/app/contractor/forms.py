@@ -18,4 +18,5 @@ class ContractorForm(FlaskForm):
     bldg = StringField('建物名等')
     telephone = StringField('代表電話', validators=[InputRequired('電話番号は必須です。'),
     Regexp('[0-9]+-[0-9]+-[0-9+]', message='電話番号は数字-数字-数字です。')])
+    is_inactive = BooleanField('休止')
     care = BooleanField('サティスケア会員')

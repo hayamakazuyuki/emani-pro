@@ -31,6 +31,14 @@
         {{ render_field_with_errors(form.telephone, class_="my-1 px-5 border-b w-full text-base text-gray-800", value=contractor.telephone) }}</div>
     <div id="tel_error" style="color: red;"></div> {# jsでバリエーション＆エラー表示をさせる場所 #}
 
+    <div class="my-3 text-sm">{{ form.is_inactive.label(class_=" text-base text-gray-500") }}
+        {% if contractor.is_inactive %}
+            {{ form.is_inactive(class_="border mx-3 align-middle", value="1", checked=True) }}
+        {% else %}
+            {{ form.is_inactive(class_="border mx-3 align-middle", value="1") }}
+        {% endif %}
+    </div>
+
     <div class="my-3 text-sm">{{ form.care.label(class_=" text-base text-gray-500") }}
         {% if contractor.satiscare.membership == 1 %}
         {{ form.care(class_="border mx-3 align-middle", value="1", checked=True) }}

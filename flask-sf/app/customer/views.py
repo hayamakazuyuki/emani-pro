@@ -177,6 +177,14 @@ def shop_profile(customer_id, id):
             shop.telephone = request.form['telephone']
             shop.registered_by = current_user.id
 
+            is_inactive = request.form.get('is_inactive')
+
+            if shop.is_inactive is None and is_inactive:
+                shop.is_inactive = 1
+
+            elif shop.is_inactive and is_inactive is None:
+                shop.is_inactive = None
+
             db.session.commit()
 
             flash('取引先情報を更新しました。', 'success')
