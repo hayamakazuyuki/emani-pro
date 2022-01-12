@@ -18,3 +18,4 @@ SQLAlchemy==1.4.27
 sympy==1.9
 Werkzeug==2.0.2
 WTForms==3.0.0
+WTForms-SQLAlchemy==0.3

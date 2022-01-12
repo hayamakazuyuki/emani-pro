@@ -31,23 +31,19 @@
     </div>
 </div>
 
-{#
 <div class="max-w-6xl mx-auto my-10 px-3">
     <div class="flex items-end">
-        <h1 class="text-xl">事業所一覧</h1>
+        <h1 class="text-xl">契約一覧</h1>
         <p class="mx-10 text-sm">
-        <a href="/customer/shop/register?customer_id={{ customer.id }}" class="text-blue-500 hover:text-blue-700 hover:underline">
+        <a href="/contract/register?customer_id={{ shop.customer_id }}&shop_id={{ shop.id }}" class="text-blue-500 hover:text-blue-700 hover:underline">
         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 inline-block" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4" />
         </svg>
-            <span class="align-middle">新規事業所を登録</span>
+            <span class="align-middle">新規契約を作成</span>
         </a>
     </p>
     </div>
     {% if shops %}
-    <p>
-
-    </p>
     <table class="table table-sm my-5">
         <thead>
             <tr>
@@ -75,6 +71,6 @@
         </tbody>
     </table>
     {% endif %}
-    #}
+
 </div>
 {% endblock %}

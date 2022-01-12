@@ -7,6 +7,7 @@ from .contractor.views import contractor
 from .customer.views import customer
 from .staff.views import staff
 from .errors.handlers import errors
+from .contract.views import contract
 
 
 def create_app():
@@ -32,5 +33,6 @@ def create_app():
     app.register_blueprint(customer)
     app.register_blueprint(staff)
     app.register_blueprint(errors)
+    app.register_blueprint(contract)
 
     return app
