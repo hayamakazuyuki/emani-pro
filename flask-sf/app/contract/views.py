@@ -15,8 +15,7 @@ def index():
     return render_template('contract/index.html')
 
 
-
-@contract.route('/register')
+@contract.route('/register', methods=['GET', 'POST'])
 @login_required
 def register():
     form = ContractRegisterForm()
@@ -27,4 +26,15 @@ def register():
     customer = Customer.query.get(customer_id)
     shop = Shop.query.get((customer_id, shop_id))
 
+    if form.validate_on_submit():
+        return request.form['opts']
+
     return render_template('contract/register.html', form=form, customer=customer, shop=shop)
+
+
+@contract.route('/contractor_search')
+def contractor_search():
+
+    q = request.args.get('q')
+    
+    return render_template('contract/contractor-search.html')

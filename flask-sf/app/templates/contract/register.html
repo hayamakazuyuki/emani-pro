@@ -2,50 +2,47 @@
 {% block content %}
 {% include "navbar.html" %}
 {% include "_flashing.html" %}
-{% from "_macros.html" import render_field_with_errors %}
+{% from "_macros.html" import render_field_with_errors, render_field_label, render_field %}
 
-<div class="container max-w-md mx-auto">
+<div class="container max-w-sm mx-auto">
     <h1 class="text-2xl my-7">契約登録</h1>
-    <form name="contractor" action="/contract/register" method="POST">
+    <form name="contract_register_form" action="/contract/register" method="POST">
 
     {{ form.csrf_token }}
-    <div class="my-3 text-sm text-gray-500">
-        <p>{{ customer.name }}</p>
-        <p class="my-1 mx-3 border-b w-full text-base text-gray-800">{{ customer.id }}</p>
+    <div class="my-5  text-base text-gray-800">
+        <p>{{ customer.id }} {{ customer.name }}</p>
+    </div>
+    <div class="my-5 text-base text-gray-800">
+        <p>{{ '%05d' % shop.id }} {{ shop.name }}</p>
     </div>
     <div class="my-3 text-sm text-gray-500">
-        <p>{{ shop.id }}</p>
-        <p class="my-1 mx-3 border-b w-full text-base text-gray-800">{{ shop.name }}</p>
+        {{ render_field_label(form.contractor_id)}}
+        <div class="flex">
+            {{ render_field(form.contractor_id, class_="my-1 border-b w-3/4 text-base text-gray-800") }}
+            <div class="ml-5 text-blue-500 hover:text-blue-700 hover:underline w-1/4">
+                <a href="javascript:openContractorSearch('/contract/contractor_search', 'contractor_search');">ID検索</a>
+            </div>
+        </div>
     </div>
-{{ form.opts }}
-{#
-    <div class="my-3 text-sm text-gray-500">
-        {{ render_field_with_errors(form.name, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
-    <div class="my-3 text-sm text-gray-500">
-        {{ render_field_with_errors(form.title, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
-    <div class="my-3 text-sm text-gray-500">
-        {{ render_field_with_errors(form.representative, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
-    <div class="my-3 text-sm text-gray-500">
-        {{ render_field_with_errors(form.zip, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
-    <div class="my-3 text-sm text-gray-500">
-        <p>都道府県　市区町村　町域</p>
-        {{ form.prefecture(class_="my-1 mx-3 border-b w-1/5 text-base text-gray-800", readonly=True) }}
-        {{ form.city(class_="my-1 mx-3 border-b w-1/5 text-base text-gray-800", readonly=True) }}
-        {{ form.town(class_="my-1 mx-3 border-b w-auto text-base text-gray-800", readonly=True) }}
+    <div class="my-4 text-sm text-gray-500 flex">
+        {{ form.contract_type.label(class_="mr-5") }}{{ form.contract_type(class_="flex") }}
     </div>
-    <div class="my-3 text-sm text-gray-500">
-        {{ render_field_with_errors(form.address, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
-    <div class="my-3 text-sm text-gray-500">
-        {{ render_field_with_errors(form.bldg, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
-    <div class="my-3 text-sm text-gray-500">
-        {{ render_field_with_errors(form.telephone, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}</div>
-    <div id="tel_error" style="color: red;"></div> {# jsでバリエーション＆エラー表示をさせる場所 #}
-    #}
-    <button type="submit" class="bg-blue-600 text-white text-sm my-5 py-1 px-28 rounded shadow-lg
+    <div class="my-4 text-sm text-gray-500">
+        {{ render_field_with_errors(form.effective_date, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}
+    </div>
+    <div class="my-4 text-sm text-gray-500">
+        {{ render_field_with_errors(form.terminate_date, class_="my-1 mx-3 border-b w-full text-base text-gray-800") }}
+    </div>
+    
+    <div class="my-4 text-sm">{{ form.auto_extention.label(class_=" text-base text-gray-500") }}
+        {{ form.auto_extention(class_="border mx-3 align-middle", value="1") }}
+        </div>
+
+    <button type="submit" class="bg-blue-600 text-white text-sm my-5 py-1 px-28 w-full rounded shadow-lg
     hover:bg-blue-800 transition duration-200">登録</button>
 </div>
 
 <!-- javascript -->
-<script type="text/javascript" src="{{ url_for('static', filename='js/register.js') }}"></script>
+<script type="text/javascript" src="{{ url_for('static', filename='js/contract-register.js') }}"></script>
 
 {% endblock %}
