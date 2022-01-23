@@ -17,9 +17,9 @@ from wtforms.validators import InputRequired, NumberRange, Length, Regexp
 
 
 class ContractRegisterForm(FlaskForm):
-    contractor_id = IntegerField('パートナーID')
+    contractor_id = IntegerField('パートナーID',[InputRequired()])
     contract_type = RadioField('契約種別', choices=[('1', '処分'),('2', '収集運搬')])
-    effective_date = DateField('契約開始日')
-    terminate_date = DateField('契約終了日')
-    auto_extention = BooleanField('契約自動更新')
+    effective_date = DateField('契約開始日', [InputRequired()])
+    terminate_date = DateField('契約終了日', [InputRequired()])
+    auto_extension = BooleanField('契約自動更新')
     is_terminated = BooleanField('契約終了')

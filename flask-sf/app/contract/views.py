@@ -4,6 +4,7 @@ from flask_login import login_required
 from .forms import ContractRegisterForm
 
 from ..customer.models import Customer, Shop
+from ..contractor.models import Contractor
 
 contract = Blueprint('contract', __name__, url_prefix='/contract')
 
@@ -32,9 +33,26 @@ def register():
     return render_template('contract/register.html', form=form, customer=customer, shop=shop)
 
 
-@contract.route('/contractor_search')
+@contract.route('/contractor_search', methods=['GET', 'POST'])
 def contractor_search():
 
-    q = request.args.get('q')
-    
+    if request.method == 'POST':
+        q = request.form['q']
+
+        value = "%{}%".format(q)
+        contractors = Contractor.query.filter(Contractor.name.like(value))
+        hits = contractors.count()
+
+        if hits == 0:
+            result = '別のキーワードで検索してください。'
+            return render_template('contract/contractor-search.html', result=result)
+
+        elif hits > 11:
+            result = 'キーワードを絞り込んでください。'
+            return render_template('contract/contractor-search.html', result=result)
+
+        else:
+            result = f'{hits}件の候補があります。'
+            return render_template('contract/contractor-search.html', contractors=contractors, result=result)
+        
     return render_template('contract/contractor-search.html')
